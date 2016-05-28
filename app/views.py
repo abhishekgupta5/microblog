@@ -75,3 +75,15 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+@app.route('/user/<nickname>')
+@login_required
+def user(nickname):
+    user = User.query.filter_by(nickname=nickname).first()
+    if user == None:
+        flash('User %s not found.' % nickname)
+        return redirect(url_for('index'))
+    posts = [
+            {'author': user, 'body': 'Test post #1'},
+            {'author': user, 'body': 'Test post #2'}
+            ]
+    return render_template('user.html',user=user, posts=posts)
