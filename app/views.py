@@ -1,34 +1,24 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db, lm, oid
-from .forms import LoginForm, EditForm
-from .models import User
+from forms import LoginForm, EditForm, PostForm
+from models import User, Post
 from datetime import datetime
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET','POST'])
+@app.route('/index', methods=['GET','POST'])
 @login_required
 def index():
-    user = g.user
-    posts = [
-            {
-	        'author': {'nickname':'Nippo'},
-		'body': 'Best goddamn roller in town!'
-	    },
-	    {
- 	        'author': {'nickname':'Mamma'},
-		'body': 'Ahhhhh!'
-	    },
-	    {
- 	        'author': {'nickname':'Akhil'},
-		'body': 'I am a great farter!'
-	    },
-	    {
- 	        'author': {'nickname':'Yash'},
-		'body': 'I am the most logical man ever!'
-	    }
-              ]
-    return render_template('index.html',title='Home',user=user,posts=posts)
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, timestamp=datetime.utcnow(), author=g.user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('index'))
+
+    posts = g.user.followed_posts().all()
+    return render_template('index.html',title='Home', form=form , posts=posts)
 
 @app.route('/login',methods=['GET','POST'])
 @oid.loginhandler
