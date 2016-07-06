@@ -29,7 +29,7 @@ if not app.debug:
     app.logger.info('microblog startup')
 
 #Sending errors through mail
-    
+
     credentials = None
     if MAIL_USERNAME or MAIL_PASSWORD:
         credentials = (MAIL_USERNAME, MAIL_PASSWORD)

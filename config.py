@@ -23,3 +23,6 @@ MAIL_PASSWORD = None
 
 #administrator list
 ADMINS = ['abhishekmodi2011@gmil.com']
+
+#pagination
+POSTS_PER_PAGE = 3
