@@ -5,6 +5,7 @@ from forms import LoginForm, EditForm, PostForm, SearchForm
 from models import User, Post
 from datetime import datetime
 from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS
+from .emails import follower_notification
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/index', methods=['GET','POST'])
@@ -139,6 +140,7 @@ def follow(nickname):
     db.session.add(u)
     db.session.commit()
     flash('You are now following ' + nickname +'!')
+    follower_notification(user, g.user)
     return redirect(url_for('user', nickname=nickname))
 
 
