@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+ <html lang="en">
+  <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,26 +16,28 @@
 </head>
 
  <body>
-    <div>Microblog:
-       <a href="{{ url_for('index') }}">Home</a>
-       {% if g.user.is_authenticated %}
+
+ <div>Microblog:
+   <a href="{{ url_for('index') }}">Home</a>
+     {% if g.user.is_authenticated %}
        | <a href="{{ url_for('user',nickname = g.user.nickname) }}">Profile</a>
        | <form style="display: inline;" action="{{ url_for('search') }}" method="post" name="search">{{
-           g.search_form.hidden_tag() }}{{ g.search_form.search(size=20) }}<input type="submit" value="Search"></form>
+            g.search_form.hidden_tag() }}{{ g.search_form.search(size=20) }}<input type="submit" value="Search"></form>
        | <a href="{{ url_for('logout') }}">Logout</a>
        {% endif %}
     </div>
     <hr>
     {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
+    {% if messages %}
+    <ul>
         {% for message in messages %}
            <li>{{ message }}</li>
         {% endfor %}
         </ul>
-      {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+    {% endif %}
+     {% endwith %}
+  {% block content %}{% endblock %}
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
