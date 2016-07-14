@@ -5,7 +5,10 @@
     {% else %}
     <title>Welcome to microblog</title>
     {% endif %}
-  </head>
+
+<script src="/static/js/moment.min.js"></script>
+
+</head>
  <body>
     <div>Microblog:
        <a href="{{ url_for('index') }}">Home</a>
@@ -27,5 +30,6 @@
       {% endif %}
     {% endwith %}
     {% block content %}{% endblock %}
+
  </body>
 </html
