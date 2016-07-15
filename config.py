@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -14,6 +16,11 @@ OPENID_PROVIDERS = [
     {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}
     ]
+
+LANGUAGES = {
+    'en': 'English',
+    'es': 'Español'
+    }
 
 #mail server settings
 MAIL_SERVER = 'smtp.gmail.com'
