@@ -8,14 +8,14 @@
          <td>
             <h1>User: {{ user.nickname }}</h1>
             {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-            {% if user.last_seen %}<p><em> Last seen: {{ momentjs(user.last_seen).calendar() }}</em></p>{% endif %}
-            <p>{{ user.followers.count() }} followers |
+            {% if user.last_seen %}<p><em> {{ _('Last seen:') }} {{ momentjs(user.last_seen).calendar() }}</em></p>{% endif %}
+            <p>{{ _('Followers:') }} {{user.followers.count() - 1}} | {{ _('Following:') }} {{user.followed.count() - 1}} | 
             {% if user.id == g.user.id %}
-                <a href="{{ url_for('edit') }}">Edit your profile</a>
+                <a href="{{ url_for('edit') }}">{{ _('Edit your profile') }}</a>
             {% elif not g.user.is_following(user) %}
-                <a href="{{ url_for('follow', nickname=user.nickname) }}">Follow</a>
+                <a href="{{ url_for('follow', nickname=user.nickname) }}">{{ _('Follow') }}</a>
             {% else %}
-                <a href="{{ url_for('unfollow', nickname=user.nickname) }}">Unfollow</a>
+                <a href="{{ url_for('unfollow', nickname=user.nickname) }}">{{ _('Unfollow') }}</a>
             {% endif %}
             </p>
          </td>
@@ -25,6 +25,6 @@
  {% for post in posts.items %}
     {% include 'post.html' %}
  {% endfor %}
- {% if posts.has_prev %}<a href="{{ url_for('user', nickname=user.nickname, page=posts.prev_num) }}">&lt;&lt; Newer posts</a>{% else %}&lt;&lt; Newer posts{% endif %} |
- {% if posts.has_next %}<a href="{{ url_for('user', nickname=user.nickname, page=posts.next_num) }}">Older posts &gt;&gt;</a>{% else %}Older posts &gt;&gt;{% endif %}
+ {% if posts.has_prev %}<a href="{{ url_for('user', nickname=user.nickname, page=posts.prev_num) }}">&lt;&lt; {{ _('Newer posts') }}</a>{% else %}&lt;&lt; {{ _('Newer posts') }}{% endif %} |
+ {% if posts.has_next %}<a href="{{ url_for('user', nickname=user.nickname, page=posts.next_num) }}">{{ _('Older posts') }} &gt;&gt;</a>{% else %}{{ _('Older posts') }} &gt;&gt;{% endif %}
 {% endblock %}
