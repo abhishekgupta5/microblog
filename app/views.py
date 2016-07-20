@@ -74,6 +74,7 @@ def before_request():
         db.session.add(g.user)
         db.session.commit()
         g.search_form = SearchForm()
+    g.locale = get_locale()
 
 @app.route('/logout')
 def logout():
